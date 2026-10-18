@@ -79,7 +79,7 @@
 <body>
 
 <header>
-  <h1>JOSHUA'S SEAFOOD BOIL</h1>
+  <h1>YOUR BUSINESS NAME</h1>
   <p>Made-to-order seafood boil. Place an order or send us a question.</p>
 </header>
 
@@ -178,7 +178,8 @@
 
 <script>
   // ====== CONFIG: paste your PRODUCTION webhook URL here ======
-  const WEBHOOK_URL = "https://tweed-swore-postcard.ngrok-free.dev/webhook/seafood-order";
+  // Netlify forwards /api/order to the n8n webhook (see the _redirects file)
+  const WEBHOOK_URL = "/api/order";
   // ============================================================
 
   const form = document.getElementById("orderForm");
