@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JOSHUA'S SEAFOOD BOIL | Made-to-Order Seafood Boil</title>
+<title>YOUR BUSINESS NAME | Made-to-Order Seafood Boil</title>
 <style>
   :root {
     --bg: #fff8f0;
@@ -110,9 +110,9 @@
       <!-- TODO: replace these placeholder options with your real menu -->
       <select id="items" name="items">
         <option value="">-- Select --</option>
-        <option value="Set A (placeholder)">Crab</option>
-        <option value="Set B (placeholder)">Mussels</option>
-        <option value="Set C (placeholder)">Shrimp</option>
+        <option value="Set A (placeholder)">Set A (placeholder)</option>
+        <option value="Set B (placeholder)">Set B (placeholder)</option>
+        <option value="Set C (placeholder)">Set C (placeholder)</option>
         <option value="Custom (placeholder)">Custom / build my own</option>
       </select>
 
@@ -135,9 +135,9 @@
       <label for="sauce">Sauce</label>
       <!-- TODO: replace with your real sauces -->
       <select id="sauce" name="sauce">
-        <option value="garlic butter">Garlic butter</option>
-        <option value="cajun">Cajun</option>
-        <option value="lemon pepper">Lemon pepper</option>
+        <option value="garlic butter">Garlic butter (placeholder)</option>
+        <option value="cajun">Cajun (placeholder)</option>
+        <option value="lemon pepper">Lemon pepper (placeholder)</option>
       </select>
 
       <div class="row">
@@ -173,7 +173,7 @@
 </main>
 
 <footer>
-  Can't submit? Message us on Facebook: https://www.facebook.com/joshua.cocky.03
+  Can't submit? Message us on Facebook: YOUR PAGE LINK HERE
 </footer>
 
 <script>
@@ -257,7 +257,10 @@
     try {
       const res = await fetch(WEBHOOK_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true"
+        },
         body: JSON.stringify(payload)
       });
       if (!res.ok) throw new Error("Server responded with " + res.status);
