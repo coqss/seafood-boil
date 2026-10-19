@@ -101,10 +101,6 @@
         <label for="contact">Mobile number</label>
         <input id="contact" name="contact" type="tel" placeholder="09XXXXXXXXX" required autocomplete="tel">
       </div>
-       <div>
-        <label for="email">Email Address</label>
-        <input id="email" name="email" type="text" required autocomplete="email">
-      </div>
     </div>
 
     <!-- ORDER-ONLY FIELDS (hidden automatically when "inquiry" is chosen) -->
@@ -158,8 +154,36 @@
         </div>
       </div>
 
-      <label for="address">Address</label>
-      <input id="address" name="address" type="text" placeholder="Street, barangay, town">
+      <div id="addressFields">
+        <label for="province">Province</label>
+        <input id="province" name="province" type="text" value="Pangasinan" readonly>
+
+        <div class="row">
+          <div>
+            <label for="city">City / Municipality</label>
+            <select id="city" name="city">
+              <option value="">Loading...</option>
+            </select>
+          </div>
+          <div>
+            <label for="barangay">Barangay</label>
+            <select id="barangay" name="barangay" disabled>
+              <option value="">Select city first</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Only shown if the location list can't be loaded -->
+        <div id="manualWrap" style="display:none">
+          <label for="manual_address">Town and barangay</label>
+          <input id="manual_address" type="text" placeholder="e.g. Lingayen, Poblacion">
+          <div class="hint">We couldn't load the location list, so please type your town and barangay.</div>
+        </div>
+
+        <label for="street">House no. / Street / Purok</label>
+        <input id="street" name="street" type="text" placeholder="e.g. Purok 3, Rizal St.">
+        <div class="hint">Delivery is available in Pangasinan only.</div>
+      </div>
     </div>
 
     <label for="message">Message <span id="msgOptional" style="font-weight:400;color:var(--muted)">(optional)</span></label>
@@ -209,6 +233,98 @@
     statusBox.className = ok ? "ok" : "err";
   }
 
+  // ===== Pangasinan-only location dropdowns (PSGC public API) =====
+  const PSGC_API = "https://psgc.gitlab.io/api";
+  const PANGASINAN_CODE = "015500000";
+  const citySel = document.getElementById("city");
+  const brgySel = document.getElementById("barangay");
+  const manualWrap = document.getElementById("manualWrap");
+  const addressFields = document.getElementById("addressFields");
+  const brgyCache = {};
+  let locationFailed = false;
+
+  // "City of Dagupan" -> "Dagupan City"
+  function cleanName(name) {
+    return name.replace(/^City of (.+)$/, "$1 City");
+  }
+
+  function useManualAddress() {
+    locationFailed = true;
+    manualWrap.style.display = "block";
+    citySel.closest(".row").style.display = "none";
+  }
+
+  async function loadCities() {
+    try {
+      const res = await fetch(PSGC_API + "/provinces/" + PANGASINAN_CODE + "/cities-municipalities/");
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      const list = data
+        .map(c => ({ code: c.code, name: cleanName(c.name) }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      citySel.innerHTML = '<option value="">-- Select city / municipality --</option>';
+      list.forEach(c => {
+        const opt = new Option(c.name, c.name);
+        opt.dataset.code = c.code;
+        citySel.add(opt);
+      });
+    } catch (err) {
+      console.error("Could not load cities", err);
+      useManualAddress();
+    }
+  }
+
+  async function loadBarangays(code) {
+    brgySel.disabled = true;
+    brgySel.innerHTML = '<option value="">Loading...</option>';
+    try {
+      if (!brgyCache[code]) {
+        const res = await fetch(PSGC_API + "/cities-municipalities/" + code + "/barangays/");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        brgyCache[code] = data.map(b => b.name).sort((a, b) => a.localeCompare(b));
+      }
+      brgySel.innerHTML = '<option value="">-- Select barangay --</option>';
+      brgyCache[code].forEach(n => brgySel.add(new Option(n, n)));
+      brgySel.disabled = false;
+    } catch (err) {
+      console.error("Could not load barangays", err);
+      useManualAddress();
+    }
+  }
+
+  citySel.addEventListener("change", () => {
+    const opt = citySel.options[citySel.selectedIndex];
+    if (opt && opt.dataset.code) {
+      loadBarangays(opt.dataset.code);
+    } else {
+      resetLocation();
+    }
+  });
+
+  function resetLocation() {
+    brgySel.innerHTML = '<option value="">Select city first</option>';
+    brgySel.disabled = true;
+    addressFields.style.display = "block";
+  }
+
+  // Hide the address section for pickup orders
+  document.getElementById("fulfillment").addEventListener("change", (e) => {
+    addressFields.style.display = e.target.value === "delivery" ? "block" : "none";
+  });
+
+  // Build one readable address line for the notification and the sheet
+  function buildAddress() {
+    const street = document.getElementById("street").value.trim();
+    if (locationFailed) {
+      return [street, document.getElementById("manual_address").value.trim(), "Pangasinan"]
+        .filter(Boolean).join(", ");
+    }
+    return [street, brgySel.value, citySel.value, "Pangasinan"].filter(Boolean).join(", ");
+  }
+
+  loadCities();
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusBox.className = "";
@@ -216,11 +332,10 @@
     const isOrder = typeSel.value === "order";
     const name = form.name.value.trim();
     const contact = form.contact.value.trim();
-    const email = form.email.value.trim();
 
     // Basic validation
-    if (!name || !contact || !email) {
-      return showStatus("Please enter your name,email and mobile number.", false);
+    if (!name || !contact) {
+      return showStatus("Please enter your name and mobile number.", false);
     }
     if (!/^(09|\+639)\d{9}$/.test(contact.replace(/[\s-]/g, ""))) {
       return showStatus("Please enter a valid PH mobile number (e.g. 09171234567).", false);
@@ -228,8 +343,17 @@
     if (isOrder) {
       if (!form.items.value) return showStatus("Please choose a boil set.", false);
       if (!form.delivery_date.value) return showStatus("Please choose a date.", false);
-      if (!form.address.value.trim() && form.fulfillment.value === "delivery") {
-        return showStatus("Please enter your delivery address.", false);
+      if (form.fulfillment.value === "delivery") {
+        if (locationFailed) {
+          if (!document.getElementById("manual_address").value.trim()) {
+            return showStatus("Please enter your town and barangay.", false);
+          }
+        } else if (!citySel.value || !brgySel.value) {
+          return showStatus("Please choose your city/municipality and barangay.", false);
+        }
+        if (!document.getElementById("street").value.trim()) {
+          return showStatus("Please enter your house no. / street / purok.", false);
+        }
       }
     } else if (!form.message.value.trim()) {
       return showStatus("Please type your question in the message box.", false);
@@ -240,7 +364,6 @@
       type: typeSel.value,
       name,
       contact,
-      email,
       message: form.message.value.trim(),
       website: form.website.value, // honeypot
       source: "netlify-site",
@@ -254,7 +377,11 @@
         sauce: form.sauce.value,
         delivery_date: form.delivery_date.value,
         fulfillment: form.fulfillment.value,
-        address: form.address.value.trim()
+        province: "Pangasinan",
+        city: locationFailed ? "" : citySel.value,
+        barangay: locationFailed ? "" : brgySel.value,
+        street: document.getElementById("street").value.trim(),
+        address: buildAddress()
       });
     }
 
@@ -279,6 +406,7 @@
         true
       );
       form.reset();
+      resetLocation();
       toggleOrderFields();
     } catch (err) {
       console.error(err);
