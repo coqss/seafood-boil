@@ -101,6 +101,10 @@
         <label for="contact">Mobile number</label>
         <input id="contact" name="contact" type="tel" placeholder="09XXXXXXXXX" required autocomplete="tel">
       </div>
+      <div>
+        <label for="email">Your email</label>
+        <input id="email" name="email" type="text" required autocomplete="email">
+      </div>
     </div>
 
     <!-- ORDER-ONLY FIELDS (hidden automatically when "inquiry" is chosen) -->
@@ -332,9 +336,10 @@
     const isOrder = typeSel.value === "order";
     const name = form.name.value.trim();
     const contact = form.contact.value.trim();
-
+    const email = form.email.value.trim();
+    
     // Basic validation
-    if (!name || !contact) {
+    if (!name || !contact || !email) {
       return showStatus("Please enter your name and mobile number.", false);
     }
     if (!/^(09|\+639)\d{9}$/.test(contact.replace(/[\s-]/g, ""))) {
@@ -364,6 +369,7 @@
       type: typeSel.value,
       name,
       contact,
+      email,
       message: form.message.value.trim(),
       website: form.website.value, // honeypot
       source: "netlify-site",
