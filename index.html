@@ -216,7 +216,7 @@
     const isOrder = typeSel.value === "order";
     const name = form.name.value.trim();
     const contact = form.contact.value.trim();
-    const email = form.contact.value.trim();
+    const email = form.email.value.trim();
 
     // Basic validation
     if (!name || !contact || !email) {
@@ -240,6 +240,7 @@
       type: typeSel.value,
       name,
       contact,
+      email,
       message: form.message.value.trim(),
       website: form.website.value, // honeypot
       source: "netlify-site",
