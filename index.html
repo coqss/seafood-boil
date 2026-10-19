@@ -101,11 +101,10 @@
         <label for="contact">Mobile number</label>
         <input id="contact" name="contact" type="tel" placeholder="09XXXXXXXXX" required autocomplete="tel">
       </div>
-      <div>
-        <label for="email">Your email</label>
-        <input id="email" name="email" type="text" placeholder="juandelacruz@gmail.com" required autocomplete="email">
-      </div>
     </div>
+
+    <label for="email">Your email</label>
+    <input id="email" name="email" type="email" placeholder="juandelacruz@gmail.com" required autocomplete="email">
 
     <!-- ORDER-ONLY FIELDS (hidden automatically when "inquiry" is chosen) -->
     <div id="orderFields">
@@ -147,6 +146,7 @@
         <div>
           <label for="delivery_date">Delivery / pickup date</label>
           <input id="delivery_date" name="delivery_date" type="date">
+          <div class="hint" id="dateHint"></div>
         </div>
         <div>
           <label for="fulfillment">Delivery or pickup</label>
@@ -219,8 +219,19 @@
   const statusBox = document.getElementById("status");
   const submitBtn = document.getElementById("submitBtn");
 
-  // Set the earliest selectable date to today
-  document.getElementById("delivery_date").min = new Date().toISOString().split("T")[0];
+  // Orders need 3 days of preparation: earliest date = today + 3 days
+  const LEAD_DAYS = 3;
+  function localDateString(offsetDays) {
+    const d = new Date();
+    d.setDate(d.getDate() + offsetDays);
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + mm + "-" + dd;
+  }
+  const dateInput = document.getElementById("delivery_date");
+  dateInput.min = localDateString(LEAD_DAYS);
+  document.getElementById("dateHint").textContent =
+    "Orders need " + LEAD_DAYS + " days of preparation (earliest: " + dateInput.min + ").";
 
   // Show or hide order fields depending on the dropdown
   function toggleOrderFields() {
@@ -339,14 +350,20 @@
     
     // Basic validation
     if (!name || !contact || !email) {
-      return showStatus("Please enter your name and mobile number.", false);
+      return showStatus("Please enter your name, mobile number, and email.", false);
     }
     if (!/^(09|\+639)\d{9}$/.test(contact.replace(/[\s-]/g, ""))) {
       return showStatus("Please enter a valid PH mobile number (e.g. 09171234567).", false);
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return showStatus("Please enter a valid email address (e.g. juandelacruz@gmail.com).", false);
+    }
     if (isOrder) {
       if (!form.items.value) return showStatus("Please choose a boil set.", false);
       if (!form.delivery_date.value) return showStatus("Please choose a date.", false);
+      if (form.delivery_date.value < dateInput.min) {
+        return showStatus("Orders need at least " + LEAD_DAYS + " days of preparation. Please choose " + dateInput.min + " or later.", false);
+      }
       if (form.fulfillment.value === "delivery") {
         if (locationFailed) {
           if (!document.getElementById("manual_address").value.trim()) {
