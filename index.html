@@ -101,6 +101,10 @@
         <label for="contact">Mobile number</label>
         <input id="contact" name="contact" type="tel" placeholder="09XXXXXXXXX" required autocomplete="tel">
       </div>
+       <div>
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="text" required autocomplete="email">
+      </div>
     </div>
 
     <!-- ORDER-ONLY FIELDS (hidden automatically when "inquiry" is chosen) -->
@@ -212,10 +216,11 @@
     const isOrder = typeSel.value === "order";
     const name = form.name.value.trim();
     const contact = form.contact.value.trim();
+    const email = form.contact.value.trim();
 
     // Basic validation
-    if (!name || !contact) {
-      return showStatus("Please enter your name and mobile number.", false);
+    if (!name || !contact || !email) {
+      return showStatus("Please enter your name,email and mobile number.", false);
     }
     if (!/^(09|\+639)\d{9}$/.test(contact.replace(/[\s-]/g, ""))) {
       return showStatus("Please enter a valid PH mobile number (e.g. 09171234567).", false);
