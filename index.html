@@ -3,441 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COQUIA'S SEAFOOD BOIL | Made-to-Order Seafood Boil</title>
+<title>Joshua's Seafood Boil | Made-to-Order Seafood Boil</title>
+<meta name="description" content="Made-to-order seafood boil delivered within Pangasinan. Place an order or send us a question.">
 <style>
   :root {
-    --bg: #fff8f0;
-    --card: #ffffff;
-    --accent: #d9480f;
-    --accent-dark: #b23a0b;
-    --text: #2b2b2b;
-    --muted: #6b6b6b;
-    --border: #e6d9cc;
+    --coral: #ff6a3d;
+    --coral-dark: #d9480f;
+    --cream: #fff6ea;
+    --ink: #2a1a10;
+    --muted: #6b5a4d;
+    --line: #ead9c6;
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: #2a1409; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .choice { transition: none; }
+  }
   body {
     margin: 0;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
+    color: var(--cream);
+    line-height: 1.6;
   }
-  header { text-align: center; padding: 32px 16px 8px; }
-  header h1 { margin: 0; font-size: 1.8rem; color: var(--accent); }
-  header p { margin: 6px 0 0; color: var(--muted); }
-  main { max-width: 560px; margin: 0 auto; padding: 16px; }
-  form {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
+
+  /* ===== Background photo =====
+     Put your photo in the same folder as this file and name it seafood-boil.jpg.
+     If the photo is missing, the warm gradient at the end shows instead. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(25, 10, 4, 0.55), rgba(25, 10, 4, 0.80)),
+      url("seafood-boil.jpg"),
+      linear-gradient(135deg, #7a2a0e 0%, #d9480f 55%, #f2a65a 100%);
+    background-size: cover;
+    background-position: center;
   }
-  label { display: block; font-weight: 600; margin: 14px 0 6px; font-size: 0.95rem; }
-  input, select, textarea {
-    width: 100%;
-    padding: 10px 12px;
-    font: inherit;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: #fff;
+
+  /* ===== Top bar ===== */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(30, 15, 8, 0.85);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
-  input:focus, select:focus, textarea:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
+  .topbar-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    flex-wrap: wrap;
   }
-  textarea { min-height: 90px; resize: vertical; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
-  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
-  button {
-    width: 100%;
-    margin-top: 22px;
-    padding: 13px;
-    font: inherit;
+  .brand {
+    font-family: Georgia, "Times New Roman", serif;
     font-weight: 700;
+    font-size: 1.1rem;
     color: #fff;
-    background: var(--accent);
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
+    text-decoration: none;
   }
-  button:hover { background: var(--accent-dark); }
-  button:disabled { opacity: 0.6; cursor: not-allowed; }
-  #status {
-    margin-top: 16px;
-    padding: 12px;
+  .nav { display: flex; flex-wrap: wrap; gap: 2px; }
+  .nav a {
+    color: #f6e6d3;
+    text-decoration: none;
+    font-size: 0.92rem;
+    padding: 6px 10px;
     border-radius: 8px;
-    display: none;
+  }
+  .nav a:hover { background: rgba(255, 255, 255, 0.14); }
+  a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+  /* ===== Hero ===== */
+  .hero {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 72px 16px 56px;
+    text-align: center;
+  }
+  .eyebrow {
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.8rem;
+    color: #ffd9b8;
+  }
+  .hero h1 {
+    margin: 0 0 14px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+  }
+  .hero h1 em { font-style: normal; color: #ffb185; }
+  .lead {
+    margin: 0 0 28px;
+    font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+    color: #fff3e4;
+  }
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  @media (max-width: 640px) { .choices { grid-template-columns: 1fr; } }
+  .choice {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 22px 56px 20px 22px;
+    border-radius: 16px;
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .choice:hover, .choice:focus-visible { transform: translateY(-3px); }
+  .choice-title { font-size: 1.35rem; font-weight: 800; }
+  .choice-text { font-size: 0.95rem; opacity: 0.92; }
+  .choice-go {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .choice-primary { background: var(--coral); color: #fff; }
+  .choice-primary:hover { background: var(--coral-dark); }
+  .choice-light { background: var(--cream); color: var(--ink); }
+  .choice-light:hover { background: #fff; }
+  .notice { margin: 22px 0 0; font-size: 0.9rem; color: #ffe6cf; }
+
+  /* ===== Content panels ===== */
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 24px; }
+  .panel {
+    background: rgba(255, 246, 234, 0.96);
+    color: var(--ink);
+    border-radius: 16px;
+    padding: 26px 24px;
+    margin: 0 0 20px;
+    scroll-margin-top: 84px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+  }
+  .panel h2 {
+    margin: 0 0 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.6rem;
+    color: var(--coral-dark);
+  }
+  .panel h3 { margin: 20px 0 6px; font-size: 1.02rem; }
+  .panel p, .panel li { color: #3a2a1f; }
+  .panel p { margin: 0 0 10px; }
+  .panel ul { padding-left: 20px; margin: 6px 0 10px; }
+  .panel a { color: var(--coral-dark); }
+  .updated { font-size: 0.85rem; color: var(--muted); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .chip {
+    background: #fde3cf;
+    color: #7a2a0e;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
     font-weight: 600;
   }
-  #status.ok  { display: block; background: #e6f4ea; color: #1e6b34; }
-  #status.err { display: block; background: #fdecea; color: #a12622; }
-  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-  footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 8px 16px 32px; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .contact-item {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    overflow-wrap: anywhere;
+  }
+  .contact-item strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .panel a.btn-solid { background: var(--coral-dark); color: #fff; }
+  .panel a.btn-solid:hover { background: #b23a0b; }
+  .panel a.btn-outline { border: 2px solid var(--coral-dark); color: var(--coral-dark); }
+  .panel a.btn-outline:hover { background: #fde3cf; }
+
+  footer {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 8px 16px 40px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: #f2dcc6;
+  }
+  footer a { color: #ffd9b8; }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>COQUIA'S SEAFOOD BOIL</h1>
-  <p>Made-to-order seafood boil. Place an order or send us a question.</p>
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">Joshua's Seafood Boil</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms &amp; Conditions</a>
+    </nav>
+  </div>
+</div>
+
+<!-- Greeting + choices -->
+<header class="hero" id="top">
+  <p class="eyebrow">Made to order &middot; Delivered in Pangasinan</p>
+  <h1>Welcome to <em>Joshua's</em> Seafood Boil</h1>
+  <p class="lead">What would you like to do?</p>
+
+  <div class="choices">
+    <!-- Goes to the order form -->
+    <a class="choice choice-primary" href="order.html">
+      <span class="choice-title">Order here</span>
+      <span class="choice-text">Pick your boil set, spice level and sauce, then choose your delivery date.</span>
+      <span class="choice-go" aria-hidden="true">&rarr;</span>
+    </a>
+    <!-- Goes to the same form, opened in message (inquiry) mode -->
+    <a class="choice choice-light" href="order.html?type=inquiry">
+      <span class="choice-title">Inquire</span>
+      <span class="choice-text">Ask about the menu, prices or delivery and we'll reply soon.</span>
+      <span class="choice-go" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+  <!-- If you change LEAD_DAYS in order.html, update the "3 days" below too -->
+  <p class="notice">Please order at least 3 days ahead. Delivery within Pangasinan only.</p>
 </header>
 
-<main>
-  <form id="orderForm" novalidate>
+<main class="wrap">
 
-    <label for="type">What would you like to do?</label>
-    <select id="type" name="type" required>
-      <option value="order">Place an order</option>
-      <option value="inquiry">Ask a question (inquiry)</option>
-    </select>
+  <!-- ===== About Us ===== -->
+  <section class="panel" id="about">
+    <h2>About Us</h2>
+    <p>Joshua's Seafood Boil is a small, made-to-order business serving seafood boil in Pangasinan. Every order is prepared for the date you choose, which is why we ask for 3 days of preparation.</p>
+    <p>Choose your boil set, how spicy you like it, and your sauce, either garlic butter or sweet and spicy Cajun. We'll confirm your order by message and take care of the rest.</p>
+    <div class="chips">
+      <span class="chip">Made to order</span>
+      <span class="chip">3 days preparation</span>
+      <span class="chip">Pangasinan delivery</span>
+    </div>
+  </section>
 
-    <div class="row">
-      <div>
-        <label for="name">Your name</label>
-        <input id="name" name="name" type="text" placeholder="Juan Dela Cruz" required autocomplete="name">
+  <!-- ===== Contact Us ===== -->
+  <section class="panel" id="contact">
+    <h2>Contact Us</h2>
+    <p>The fastest way to reach us is through the order or inquiry form, so we get all the details in one message.</p>
+    <div class="contact-grid">
+      <!-- TODO: replace the three placeholders below with your real details -->
+      <div class="contact-item">
+        <strong>Facebook</strong>
+        <a href="https://www.facebook.com/YOUR-PAGE" target="_blank" rel="noopener">YOUR FACEBOOK PAGE</a>
       </div>
-      <div>
-        <label for="contact">Mobile number</label>
-        <input id="contact" name="contact" type="tel" placeholder="09XXXXXXXXX" required autocomplete="tel">
+      <div class="contact-item">
+        <strong>Mobile</strong>
+        <a href="tel:09XXXXXXXXX">09XX XXX XXXX</a>
+      </div>
+      <div class="contact-item">
+        <strong>Email</strong>
+        <a href="mailto:YOUR-EMAIL@example.com">YOUR-EMAIL@example.com</a>
+      </div>
+      <div class="contact-item">
+        <strong>Service area</strong>
+        Pangasinan
       </div>
     </div>
-
-    <label for="email">Your email</label>
-    <input id="email" name="email" type="email" placeholder="juandelacruz@gmail.com" required autocomplete="email">
-
-    <!-- ORDER-ONLY FIELDS (hidden automatically when "inquiry" is chosen) -->
-    <div id="orderFields">
-
-      <label for="items">Boil set / items</label>
-      <!-- TODO: replace these placeholder options with your real menu -->
-      <select id="items" name="items">
-        <option value="">-- Select --</option>
-        <option value="Set A (placeholder)">Set A (placeholder)</option>
-        <option value="Set B (placeholder)">Set B (placeholder)</option>
-        <option value="Set C (placeholder)">Set C (placeholder)</option>
-        <option value="Custom (placeholder)">Custom / build my own</option>
-      </select>
-
-      <div class="row">
-        <div>
-          <label for="pax">Number of persons</label>
-          <input id="pax" name="pax" type="number" min="1" max="50" value="2">
-        </div>
-        <div>
-          <label for="spice_level">Spice level</label>
-          <select id="spice_level" name="spice_level">
-            <option value="none">None</option>
-            <option value="mild">Mild</option>
-            <option value="medium" selected>Medium</option>
-            <option value="hot">Hot</option>
-          </select>
-        </div>
-      </div>
-
-      <label for="sauce">Sauce</label>
-      <!-- TODO: replace with your real sauces -->
-      <select id="sauce" name="sauce">
-        <option value="garlic butter"> Garlic butter </option>
-        <option value="cajun"> Sweet and Spicy Cajun</option>
-      </select>
-
-      <div class="row">
-        <div>
-          <label for="delivery_date">Delivery / pickup date</label>
-          <input id="delivery_date" name="delivery_date" type="date">
-          <div class="hint" id="dateHint"></div>
-        </div>
-        <div>
-          <label for="fulfillment">Delivery or pickup</label>
-          <select id="fulfillment" name="fulfillment">
-            <option value="delivery">Delivery</option>
-            <option value="pickup">Pickup</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="addressFields">
-        <label for="province">Province</label>
-        <input id="province" name="province" type="text" value="Pangasinan" readonly>
-
-        <div class="row">
-          <div>
-            <label for="city">City / Municipality</label>
-            <select id="city" name="city">
-              <option value="">Loading...</option>
-            </select>
-          </div>
-          <div>
-            <label for="barangay">Barangay</label>
-            <select id="barangay" name="barangay" disabled>
-              <option value="">Select city first</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Only shown if the location list can't be loaded -->
-        <div id="manualWrap" style="display:none">
-          <label for="manual_address">Town and barangay</label>
-          <input id="manual_address" type="text" placeholder="e.g. Lingayen, Poblacion">
-          <div class="hint">We couldn't load the location list, so please type your town and barangay.</div>
-        </div>
-
-        <label for="street">House no. / Street / Purok</label>
-        <input id="street" name="street" type="text" placeholder="e.g. Purok 3, Rizal St.">
-        <div class="hint">Delivery is available in Pangasinan only.</div>
-      </div>
+    <div class="btn-row">
+      <a class="btn btn-solid" href="order.html">Order here</a>
+      <a class="btn btn-outline" href="order.html?type=inquiry">Send an inquiry</a>
     </div>
+  </section>
 
-    <label for="message">Message <span id="msgOptional" style="font-weight:400;color:var(--muted)">(optional)</span></label>
-    <textarea id="message" name="message" placeholder="Allergies, special requests, or your question"></textarea>
+  <!-- ===== Privacy Policy =====
+       Template written for a small Philippine business. Please read it, make sure it
+       matches how you actually handle orders, and edit what doesn't. -->
+  <section class="panel" id="privacy">
+    <h2>Privacy Policy</h2>
+    <p class="updated">Last updated: October 22, 2026</p>
+    <p>Joshua's Seafood Boil ("we", "us") respects your privacy. This policy explains what personal information we collect through this website and how we use it, in line with the Data Privacy Act of 2012 (Republic Act No. 10173) of the Philippines.</p>
 
-    <!-- Honeypot: real people never see or fill this. n8n should reject if it is not empty. -->
-    <div class="hp" aria-hidden="true">
-      <label for="website">Leave this field empty</label>
-      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
-    </div>
+    <h3>What we collect</h3>
+    <ul>
+      <li>Your name, mobile number and email address.</li>
+      <li>For orders: your chosen set, number of persons, spice level, sauce, delivery or pickup date, and delivery address (city or municipality, barangay and street).</li>
+      <li>Anything you type in the message box.</li>
+    </ul>
 
-    <button type="submit" id="submitBtn">Send</button>
-    <div id="status" role="status" aria-live="polite"></div>
-  </form>
+    <h3>Why we use it</h3>
+    <ul>
+      <li>To receive, confirm, prepare and deliver your order.</li>
+      <li>To answer your questions and contact you about your order.</li>
+      <li>To keep a record of our orders and inquiries.</li>
+    </ul>
+    <p>We do not sell your information and we do not use it for advertising.</p>
+
+    <h3>Who can see it</h3>
+    <p>Only us, and the online service providers that host this website and help us receive and organize orders. They handle your information only to provide those services. The address dropdowns load Pangasinan town and barangay names from a public Philippine place-names service (PSGC), which does not receive what you type in the form.</p>
+
+    <h3>How long we keep it</h3>
+    <p>We keep order and inquiry records only as long as we need them to serve you and to keep our business records. You can ask us to delete yours sooner.</p>
+
+    <h3>Your rights</h3>
+    <p>Under the Data Privacy Act you may ask to see the information we hold about you, have it corrected, object to how we use it, withdraw your consent, or have it deleted or blocked. To do any of these, contact us using the details in Contact Us above. You may also file a complaint with the National Privacy Commission (privacy.gov.ph).</p>
+
+    <h3>Security and changes</h3>
+    <p>We take reasonable steps to protect your information, but no online system is completely secure. If we change this policy, the new version will appear on this page with a new date.</p>
+  </section>
+
+  <!-- ===== Terms & Conditions =====
+       Template: edit the payment, change and cancellation parts to match your real rules. -->
+  <section class="panel" id="terms">
+    <h2>Terms &amp; Conditions</h2>
+    <p class="updated">Last updated: October 22, 2026</p>
+    <p>By placing an order or sending an inquiry through this website, you agree to these terms.</p>
+
+    <h3>1. Made-to-order and lead time</h3>
+    <p>All of our food is made to order. Orders must be placed at least 3 days before your chosen delivery or pickup date. An order is confirmed only after we message you to confirm it. Until then, it is a request.</p>
+
+    <h3>2. Delivery area</h3>
+    <p>We deliver within Pangasinan only. Any delivery fee and the delivery time will be confirmed with you when we confirm your order.</p>
+
+    <h3>3. Prices and payment</h3>
+    <p>Prices and accepted payment methods will be confirmed with you when we confirm your order.</p>
+
+    <h3>4. Changes and cancellations</h3>
+    <p>Because everything is made to order, please tell us as early as possible if you need to change or cancel. Changes and cancellations may not be possible once we have started preparing your order.</p>
+
+    <h3>5. Allergies</h3>
+    <p>Our food contains seafood, including shellfish. Please tell us about any allergies in the message box when you order. We cannot guarantee that any item is completely free from allergens or cross-contact.</p>
+
+    <h3>6. Accurate information</h3>
+    <p>Please give us a correct mobile number, email and address. We are not responsible for a failed or late delivery caused by incorrect information.</p>
+
+    <h3>7. Enjoy it fresh</h3>
+    <p>Seafood boils are best eaten soon after they arrive. Please follow any storage or reheating advice we give you.</p>
+
+    <h3>8. Changes and governing law</h3>
+    <p>We may update these terms from time to time, and the new version will appear on this page with a new date. These terms are governed by the laws of the Republic of the Philippines.</p>
+  </section>
 </main>
 
 <footer>
-  Can't submit? Message us on Facebook: YOUR PAGE LINK HERE
+  <p>&copy; <span id="year">2026</span> Joshua's Seafood Boil &middot;
+    <a href="#about">About Us</a> &middot;
+    <a href="#contact">Contact Us</a> &middot;
+    <a href="#privacy">Privacy Policy</a> &middot;
+    <a href="#terms">Terms &amp; Conditions</a>
+  </p>
 </footer>
 
 <script>
-  // ====== CONFIG: paste your PRODUCTION webhook URL here ======
-  // Netlify forwards /api/order to the n8n webhook (see the _redirects file)
-  const WEBHOOK_URL = "/api/order";
-  // ============================================================
-
-  const form = document.getElementById("orderForm");
-  const typeSel = document.getElementById("type");
-  const orderFields = document.getElementById("orderFields");
-  const statusBox = document.getElementById("status");
-  const submitBtn = document.getElementById("submitBtn");
-
-  // Orders need 3 days of preparation: earliest date = today + 3 days
-  const LEAD_DAYS = 3;
-  function localDateString(offsetDays) {
-    const d = new Date();
-    d.setDate(d.getDate() + offsetDays);
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return d.getFullYear() + "-" + mm + "-" + dd;
-  }
-  const dateInput = document.getElementById("delivery_date");
-  dateInput.min = localDateString(LEAD_DAYS);
-  document.getElementById("dateHint").textContent =
-    "Orders need " + LEAD_DAYS + " days of preparation (earliest: " + dateInput.min + ").";
-
-  // Show or hide order fields depending on the dropdown
-  function toggleOrderFields() {
-    const isOrder = typeSel.value === "order";
-    orderFields.style.display = isOrder ? "block" : "none";
-    submitBtn.textContent = isOrder ? "Place Order" : "Send Inquiry";
-  }
-  typeSel.addEventListener("change", toggleOrderFields);
-  toggleOrderFields();
-
-  function showStatus(msg, ok) {
-    statusBox.textContent = msg;
-    statusBox.className = ok ? "ok" : "err";
-  }
-
-  // ===== Pangasinan-only location dropdowns (PSGC public API) =====
-  const PSGC_API = "https://psgc.gitlab.io/api";
-  const PANGASINAN_CODE = "015500000";
-  const citySel = document.getElementById("city");
-  const brgySel = document.getElementById("barangay");
-  const manualWrap = document.getElementById("manualWrap");
-  const addressFields = document.getElementById("addressFields");
-  const brgyCache = {};
-  let locationFailed = false;
-
-  // "City of Dagupan" -> "Dagupan City"
-  function cleanName(name) {
-    return name.replace(/^City of (.+)$/, "$1 City");
-  }
-
-  function useManualAddress() {
-    locationFailed = true;
-    manualWrap.style.display = "block";
-    citySel.closest(".row").style.display = "none";
-  }
-
-  async function loadCities() {
-    try {
-      const res = await fetch(PSGC_API + "/provinces/" + PANGASINAN_CODE + "/cities-municipalities/");
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const data = await res.json();
-      const list = data
-        .map(c => ({ code: c.code, name: cleanName(c.name) }))
-        .sort((a, b) => a.name.localeCompare(b.name));
-      citySel.innerHTML = '<option value="">-- Select city / municipality --</option>';
-      list.forEach(c => {
-        const opt = new Option(c.name, c.name);
-        opt.dataset.code = c.code;
-        citySel.add(opt);
-      });
-    } catch (err) {
-      console.error("Could not load cities", err);
-      useManualAddress();
-    }
-  }
-
-  async function loadBarangays(code) {
-    brgySel.disabled = true;
-    brgySel.innerHTML = '<option value="">Loading...</option>';
-    try {
-      if (!brgyCache[code]) {
-        const res = await fetch(PSGC_API + "/cities-municipalities/" + code + "/barangays/");
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const data = await res.json();
-        brgyCache[code] = data.map(b => b.name).sort((a, b) => a.localeCompare(b));
-      }
-      brgySel.innerHTML = '<option value="">-- Select barangay --</option>';
-      brgyCache[code].forEach(n => brgySel.add(new Option(n, n)));
-      brgySel.disabled = false;
-    } catch (err) {
-      console.error("Could not load barangays", err);
-      useManualAddress();
-    }
-  }
-
-  citySel.addEventListener("change", () => {
-    const opt = citySel.options[citySel.selectedIndex];
-    if (opt && opt.dataset.code) {
-      loadBarangays(opt.dataset.code);
-    } else {
-      resetLocation();
-    }
-  });
-
-  function resetLocation() {
-    brgySel.innerHTML = '<option value="">Select city first</option>';
-    brgySel.disabled = true;
-    addressFields.style.display = "block";
-  }
-
-  // Hide the address section for pickup orders
-  document.getElementById("fulfillment").addEventListener("change", (e) => {
-    addressFields.style.display = e.target.value === "delivery" ? "block" : "none";
-  });
-
-  // Build one readable address line for the notification and the sheet
-  function buildAddress() {
-    const street = document.getElementById("street").value.trim();
-    if (locationFailed) {
-      return [street, document.getElementById("manual_address").value.trim(), "Pangasinan"]
-        .filter(Boolean).join(", ");
-    }
-    return [street, brgySel.value, citySel.value, "Pangasinan"].filter(Boolean).join(", ");
-  }
-
-  loadCities();
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    statusBox.className = "";
-
-    const isOrder = typeSel.value === "order";
-    const name = form.name.value.trim();
-    const contact = form.contact.value.trim();
-    const email = form.email.value.trim();
-    
-    // Basic validation
-    if (!name || !contact || !email) {
-      return showStatus("Please enter your name, mobile number, and email.", false);
-    }
-    if (!/^(09|\+639)\d{9}$/.test(contact.replace(/[\s-]/g, ""))) {
-      return showStatus("Please enter a valid PH mobile number (e.g. 09171234567).", false);
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return showStatus("Please enter a valid email address (e.g. juandelacruz@gmail.com).", false);
-    }
-    if (isOrder) {
-      if (!form.items.value) return showStatus("Please choose a boil set.", false);
-      if (!form.delivery_date.value) return showStatus("Please choose a date.", false);
-      if (form.delivery_date.value < dateInput.min) {
-        return showStatus("Orders need at least " + LEAD_DAYS + " days of preparation. Please choose " + dateInput.min + " or later.", false);
-      }
-      if (form.fulfillment.value === "delivery") {
-        if (locationFailed) {
-          if (!document.getElementById("manual_address").value.trim()) {
-            return showStatus("Please enter your town and barangay.", false);
-          }
-        } else if (!citySel.value || !brgySel.value) {
-          return showStatus("Please choose your city/municipality and barangay.", false);
-        }
-        if (!document.getElementById("street").value.trim()) {
-          return showStatus("Please enter your house no. / street / purok.", false);
-        }
-      }
-    } else if (!form.message.value.trim()) {
-      return showStatus("Please type your question in the message box.", false);
-    }
-
-    // Build the payload (field names match the n8n workflow)
-    const payload = {
-      type: typeSel.value,
-      name,
-      contact,
-      email,
-      message: form.message.value.trim(),
-      website: form.website.value, // honeypot
-      source: "netlify-site",
-      submitted_at: new Date().toISOString()
-    };
-    if (isOrder) {
-      Object.assign(payload, {
-        items: form.items.value,
-        pax: Number(form.pax.value) || 1,
-        spice_level: form.spice_level.value,
-        sauce: form.sauce.value,
-        delivery_date: form.delivery_date.value,
-        fulfillment: form.fulfillment.value,
-        province: "Pangasinan",
-        city: locationFailed ? "" : citySel.value,
-        barangay: locationFailed ? "" : brgySel.value,
-        street: document.getElementById("street").value.trim(),
-        address: buildAddress()
-      });
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-
-    try {
-      const res = await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true"
-        },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error("Server responded with " + res.status);
-
-      showStatus(
-        isOrder
-          ? "Order received! We will message you soon to confirm."
-          : "Thanks! We got your question and will reply soon.",
-        true
-      );
-      form.reset();
-      resetLocation();
-      toggleOrderFields();
-    } catch (err) {
-      console.error(err);
-      showStatus("Sorry, something went wrong. Please try again or message us on Facebook.", false);
-    } finally {
-      submitBtn.disabled = false;
-      toggleOrderFields();
-    }
-  });
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
