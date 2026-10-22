@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COQUIA'S SEAFOOD BOIL | Made-to-Order Seafood Boil</title>
+<style>
+  :root {
+    --bg: #fff8f0;
+    --card: #ffffff;
+    --accent: #d9480f;
+    --accent-dark: #b23a0b;
+    --text: #2b2b2b;
+    --muted: #6b6b6b;
+    --border: #e6d9cc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  header { text-align: center; padding: 32px 16px 8px; }
+  header h1 { margin: 0; font-size: 1.8rem; color: var(--accent); }
+  header p { margin: 6px 0 0; color: var(--muted); }
+  main { max-width: 560px; margin: 0 auto; padding: 16px; }
+  form {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  label { display: block; font-weight: 600; margin: 14px 0 6px; font-size: 0.95rem; }
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font: inherit;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
+  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    font: inherit;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  button:hover { background: var(--accent-dark); }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  #status {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    display: none;
+    font-weight: 600;
+  }
+  #status.ok  { display: block; background: #e6f4ea; color: #1e6b34; }
+  #status.err { display: block; background: #fdecea; color: #a12622; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 8px 16px 32px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>COQUIA'S SEAFOOD BOIL</h1>
+  <p>Made-to-order seafood boil. Place an order or send us a question.</p>
+  <p><a href="index.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">&larr; Back to home</a></p>
+</header>
+
+<main>
+  <form id="orderForm" novalidate>
+
+    <label for="type">What would you like to do?</label>
+    <select id="type" name="type" required>
+      <option value="order">Place an order</option>
+      <option value="inquiry">Ask a question (inquiry)</option>
+    </select>
+
+    <div class="row">
+      <div>
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" placeholder="Juan Dela Cruz" required autocomplete="name">
+      </div>
+      <div>
+        <label for="contact">Mobile number</label>
+        <input id="contact" name="contact" type="tel" placeholder="09XXXXXXXXX" required autocomplete="tel">
+      </div>
+    </div>
+
+    <label for="email">Your email</label>
+    <input id="email" name="email" type="email" placeholder="juandelacruz@gmail.com" required autocomplete="email">
+
+    <!-- ORDER-ONLY FIELDS (hidden automatically when "inquiry" is chosen) -->
+    <div id="orderFields">
+
+      <label for="items">Boil set / items</label>
+      <!-- TODO: replace these placeholder options with your real menu -->
+      <select id="items" name="items">
+        <option value="">-- Select --</option>
+        <option value="Set A (placeholder)">Set A (placeholder)</option>
+        <option value="Set B (placeholder)">Set B (placeholder)</option>
+        <option value="Set C (placeholder)">Set C (placeholder)</option>
+        <option value="Custom (placeholder)">Custom / build my own</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="pax">Number of persons</label>
+          <input id="pax" name="pax" type="number" min="1" max="50" value="2">
+        </div>
+        <div>
+          <label for="spice_level">Spice level</label>
+          <select id="spice_level" name="spice_level">
+            <option value="none">None</option>
+            <option value="mild">Mild</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hot">Hot</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="sauce">Sauce</label>
+      <!-- TODO: replace with your real sauces -->
+      <select id="sauce" name="sauce">
+        <option value="garlic butter"> Garlic butter </option>
+        <option value="cajun"> Sweet and Spicy Cajun</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label for="delivery_date">Delivery / pickup date</label>
+          <input id="delivery_date" name="delivery_date" type="date">
+          <div class="hint" id="dateHint"></div>
+        </div>
+        <div>
+          <label for="fulfillment">Delivery or pickup</label>
+          <select id="fulfillment" name="fulfillment">
+            <option value="delivery">Delivery</option>
+            <option value="pickup">Pickup</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="addressFields">
+        <label for="province">Province</label>
+        <input id="province" name="province" type="text" value="Pangasinan" readonly>
+
+        <div class="row">
+          <div>
+            <label for="city">City / Municipality</label>
+            <select id="city" name="city">
+              <option value="">Loading...</option>
+            </select>
+          </div>
+          <div>
+            <label for="barangay">Barangay</label>
+            <select id="barangay" name="barangay" disabled>
+              <option value="">Select city first</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Only shown if the location list can't be loaded -->
+        <div id="manualWrap" style="display:none">
+          <label for="manual_address">Town and barangay</label>
+          <input id="manual_address" type="text" placeholder="e.g. Lingayen, Poblacion">
+          <div class="hint">We couldn't load the location list, so please type your town and barangay.</div>
+        </div>
+
+        <label for="street">House no. / Street / Purok</label>
+        <input id="street" name="street" type="text" placeholder="e.g. Purok 3, Rizal St.">
+        <div class="hint">Delivery is available in Pangasinan only.</div>
+      </div>
+    </div>
+
+    <label for="message">Message <span id="msgOptional" style="font-weight:400;color:var(--muted)">(optional)</span></label>
+    <textarea id="message" name="message" placeholder="Allergies, special requests, or your question"></textarea>
+
+    <!-- Honeypot: real people never see or fill this. n8n should reject if it is not empty. -->
+    <div class="hp" aria-hidden="true">
+      <label for="website">Leave this field empty</label>
+      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button type="submit" id="submitBtn">Send</button>
+    <div id="status" role="status" aria-live="polite"></div>
+  </form>
+</main>
+
+<footer>
+  Can't submit? Message us on Facebook: YOUR PAGE LINK HERE
+</footer>
+
+<script>
+  // ====== CONFIG: paste your PRODUCTION webhook URL here ======
+  // Netlify forwards /api/order to the n8n webhook (see the _redirects file)
+  const WEBHOOK_URL = "/api/order";
+  // ============================================================
+
+  const form = document.getElementById("orderForm");
+  const typeSel = document.getElementById("type");
+  const orderFields = document.getElementById("orderFields");
+  const statusBox = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+
+  // Orders need 3 days of preparation: earliest date = today + 3 days
+  const LEAD_DAYS = 3;
+  function localDateString(offsetDays) {
+    const d = new Date();
+    d.setDate(d.getDate() + offsetDays);
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return d.getFullYear() + "-" + mm + "-" + dd;
+  }
+  const dateInput = document.getElementById("delivery_date");
+  dateInput.min = localDateString(LEAD_DAYS);
+  document.getElementById("dateHint").textContent =
+    "Orders need " + LEAD_DAYS + " days of preparation (earliest: " + dateInput.min + ").";
+
+  // Show or hide order fields depending on the dropdown
+  function toggleOrderFields() {
+    const isOrder = typeSel.value === "order";
+    orderFields.style.display = isOrder ? "block" : "none";
+    submitBtn.textContent = isOrder ? "Place Order" : "Send Inquiry";
+  }
+  typeSel.addEventListener("change", toggleOrderFields);
+
+  // The home page links here with ?type=inquiry (message mode) or ?type=order
+  const urlType = new URLSearchParams(location.search).get("type");
+  if (urlType === "inquiry" || urlType === "order") typeSel.value = urlType;
+
+  toggleOrderFields();
+
+  function showStatus(msg, ok) {
+    statusBox.textContent = msg;
+    statusBox.className = ok ? "ok" : "err";
+  }
+
+  // ===== Pangasinan-only location dropdowns (PSGC public API) =====
+  const PSGC_API = "https://psgc.gitlab.io/api";
+  const PANGASINAN_CODE = "015500000";
+  const citySel = document.getElementById("city");
+  const brgySel = document.getElementById("barangay");
+  const manualWrap = document.getElementById("manualWrap");
+  const addressFields = document.getElementById("addressFields");
+  const brgyCache = {};
+  let locationFailed = false;
+
+  // "City of Dagupan" -> "Dagupan City"
+  function cleanName(name) {
+    return name.replace(/^City of (.+)$/, "$1 City");
+  }
+
+  function useManualAddress() {
+    locationFailed = true;
+    manualWrap.style.display = "block";
+    citySel.closest(".row").style.display = "none";
+  }
+
+  async function loadCities() {
+    try {
+      const res = await fetch(PSGC_API + "/provinces/" + PANGASINAN_CODE + "/cities-municipalities/");
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      const list = data
+        .map(c => ({ code: c.code, name: cleanName(c.name) }))
+        .sort((a, b) => a.name.localeCompare(b.name));
+      citySel.innerHTML = '<option value="">-- Select city / municipality --</option>';
+      list.forEach(c => {
+        const opt = new Option(c.name, c.name);
+        opt.dataset.code = c.code;
+        citySel.add(opt);
+      });
+    } catch (err) {
+      console.error("Could not load cities", err);
+      useManualAddress();
+    }
+  }
+
+  async function loadBarangays(code) {
+    brgySel.disabled = true;
+    brgySel.innerHTML = '<option value="">Loading...</option>';
+    try {
+      if (!brgyCache[code]) {
+        const res = await fetch(PSGC_API + "/cities-municipalities/" + code + "/barangays/");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        brgyCache[code] = data.map(b => b.name).sort((a, b) => a.localeCompare(b));
+      }
+      brgySel.innerHTML = '<option value="">-- Select barangay --</option>';
+      brgyCache[code].forEach(n => brgySel.add(new Option(n, n)));
+      brgySel.disabled = false;
+    } catch (err) {
+      console.error("Could not load barangays", err);
+      useManualAddress();
+    }
+  }
+
+  citySel.addEventListener("change", () => {
+    const opt = citySel.options[citySel.selectedIndex];
+    if (opt && opt.dataset.code) {
+      loadBarangays(opt.dataset.code);
+    } else {
+      resetLocation();
+    }
+  });
+
+  function resetLocation() {
+    brgySel.innerHTML = '<option value="">Select city first</option>';
+    brgySel.disabled = true;
+    addressFields.style.display = "block";
+  }
+
+  // Hide the address section for pickup orders
+  document.getElementById("fulfillment").addEventListener("change", (e) => {
+    addressFields.style.display = e.target.value === "delivery" ? "block" : "none";
+  });
+
+  // Build one readable address line for the notification and the sheet
+  function buildAddress() {
+    const street = document.getElementById("street").value.trim();
+    if (locationFailed) {
+      return [street, document.getElementById("manual_address").value.trim(), "Pangasinan"]
+        .filter(Boolean).join(", ");
+    }
+    return [street, brgySel.value, citySel.value, "Pangasinan"].filter(Boolean).join(", ");
+  }
+
+  loadCities();
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    statusBox.className = "";
+
+    const isOrder = typeSel.value === "order";
+    const name = form.name.value.trim();
+    const contact = form.contact.value.trim();
+    const email = form.email.value.trim();
+    
+    // Basic validation
+    if (!name || !contact || !email) {
+      return showStatus("Please enter your name, mobile number, and email.", false);
+    }
+    if (!/^(09|\+639)\d{9}$/.test(contact.replace(/[\s-]/g, ""))) {
+      return showStatus("Please enter a valid PH mobile number (e.g. 09171234567).", false);
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return showStatus("Please enter a valid email address (e.g. juandelacruz@gmail.com).", false);
+    }
+    if (isOrder) {
+      if (!form.items.value) return showStatus("Please choose a boil set.", false);
+      if (!form.delivery_date.value) return showStatus("Please choose a date.", false);
+      if (form.delivery_date.value < dateInput.min) {
+        return showStatus("Orders need at least " + LEAD_DAYS + " days of preparation. Please choose " + dateInput.min + " or later.", false);
+      }
+      if (form.fulfillment.value === "delivery") {
+        if (locationFailed) {
+          if (!document.getElementById("manual_address").value.trim()) {
+            return showStatus("Please enter your town and barangay.", false);
+          }
+        } else if (!citySel.value || !brgySel.value) {
+          return showStatus("Please choose your city/municipality and barangay.", false);
+        }
+        if (!document.getElementById("street").value.trim()) {
+          return showStatus("Please enter your house no. / street / purok.", false);
+        }
+      }
+    } else if (!form.message.value.trim()) {
+      return showStatus("Please type your question in the message box.", false);
+    }
+
+    // Build the payload (field names match the n8n workflow)
+    const payload = {
+      type: typeSel.value,
+      name,
+      contact,
+      email,
+      message: form.message.value.trim(),
+      website: form.website.value, // honeypot
+      source: "netlify-site",
+      submitted_at: new Date().toISOString()
+    };
+    if (isOrder) {
+      Object.assign(payload, {
+        items: form.items.value,
+        pax: Number(form.pax.value) || 1,
+        spice_level: form.spice_level.value,
+        sauce: form.sauce.value,
+        delivery_date: form.delivery_date.value,
+        fulfillment: form.fulfillment.value,
+        province: "Pangasinan",
+        city: locationFailed ? "" : citySel.value,
+        barangay: locationFailed ? "" : brgySel.value,
+        street: document.getElementById("street").value.trim(),
+        address: buildAddress()
+      });
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true"
+        },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error("Server responded with " + res.status);
+
+      showStatus(
+        isOrder
+          ? "Order received! We will message you soon to confirm."
+          : "Thanks! We got your question and will reply soon.",
+        true
+      );
+      form.reset();
+      resetLocation();
+      toggleOrderFields();
+    } catch (err) {
+      console.error(err);
+      showStatus("Sorry, something went wrong. Please try again or message us on Facebook.", false);
+    } finally {
+      submitBtn.disabled = false;
+      toggleOrderFields();
+    }
+  });
+</script>
+</body>
+</html>
