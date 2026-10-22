@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joshua's Seafood Boil | Made-to-Order Seafood Boil</title>
+<meta name="description" content="Made-to-order seafood boil delivered within Pangasinan. Place an order or send us a question.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Joshua's Seafood Boil</a>
+    <nav class="nav" aria-label="Main">
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <p class="eyebrow">Made to order &middot; Delivered in Pangasinan</p>
+  <h1>Welcome to <em>Joshua's</em> Seafood Boil</h1>
+  <p class="lead">What would you like to do?</p>
+
+  <div class="choices">
+    <!-- Goes to the order form -->
+    <a class="choice choice-primary" href="order.html">
+      <span class="choice-title">Order here</span>
+      <span class="choice-text">Pick your boil set, spice level and sauce, then choose your delivery date.</span>
+      <span class="choice-go" aria-hidden="true">&rarr;</span>
+    </a>
+    <!-- Goes to the same form, opened in message (inquiry) mode -->
+    <a class="choice choice-light" href="order.html?type=inquiry">
+      <span class="choice-title">Inquire</span>
+      <span class="choice-text">Ask about the menu, prices or delivery and we'll reply soon.</span>
+      <span class="choice-go" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+
+  <!-- If you change LEAD_DAYS in order.html, update the "3 days" below too -->
+  <p class="notice">Please order at least 3 days ahead. Delivery within Pangasinan only.</p>
+</header>
+
+<footer>
+  <p>&copy; <span id="year">2026</span> Joshua's Seafood Boil &middot;
+    <a href="about.html">About Us</a> &middot;
+    <a href="contact.html">Contact Us</a> &middot;
+    <a href="privacy.html">Privacy Policy</a> &middot;
+    <a href="terms.html">Terms &amp; Conditions</a>
+  </p>
+</footer>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

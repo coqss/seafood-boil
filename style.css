@@ -1,0 +1,250 @@
+/* Shared styles for the landing page, About, Contact, Privacy and Terms pages */
+
+:root {
+  --coral: #ff6a3d;
+  --coral-dark: #d9480f;
+  --cream: #fff6ea;
+  --ink: #2a1a10;
+  --muted: #6b5a4d;
+  --line: #ead9c6;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: #2a1409; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .choice { transition: none; }
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--cream);
+  line-height: 1.6;
+}
+
+/* ===== Background photo (same on every page) =====
+   Put your photo in the same folder as these files and name it seafood-boil.jpg.
+   If the photo is missing, the warm gradient at the end shows instead. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(25, 10, 4, 0.55), rgba(25, 10, 4, 0.80)),
+    url("seafood-boil.jpg"),
+    linear-gradient(135deg, #7a2a0e 0%, #d9480f 55%, #f2a65a 100%);
+  background-size: cover;
+  background-position: center;
+}
+
+/* ===== Top bar ===== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(30, 15, 8, 0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.topbar-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+}
+.brand {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+}
+.nav { display: flex; flex-wrap: wrap; gap: 2px; }
+.nav a {
+  color: #f6e6d3;
+  text-decoration: none;
+  font-size: 0.92rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.nav a:hover { background: rgba(255, 255, 255, 0.14); }
+.nav a[aria-current="page"] { background: rgba(255, 255, 255, 0.2); color: #fff; font-weight: 600; }
+a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* ===== Landing page hero ===== */
+.hero {
+  flex: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.eyebrow {
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.8rem;
+  color: #ffd9b8;
+}
+.hero h1 {
+  margin: 0 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.1;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+.hero h1 em { font-style: normal; color: #ffb185; }
+.lead {
+  margin: 0 0 28px;
+  font-size: clamp(1.1rem, 2.6vw, 1.4rem);
+  color: #fff3e4;
+}
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 720px;
+  text-align: left;
+}
+@media (max-width: 640px) { .choices { grid-template-columns: 1fr; } }
+.choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 56px 20px 22px;
+  border-radius: 16px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.choice:hover, .choice:focus-visible { transform: translateY(-3px); }
+.choice-title { font-size: 1.35rem; font-weight: 800; }
+.choice-text { font-size: 0.95rem; opacity: 0.92; }
+.choice-go {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.choice-primary { background: var(--coral); color: #fff; }
+.choice-primary:hover { background: var(--coral-dark); }
+.choice-light { background: var(--cream); color: var(--ink); }
+.choice-light:hover { background: #fff; }
+.notice { margin: 22px 0 0; font-size: 0.9rem; color: #ffe6cf; }
+
+/* ===== Content pages (About, Contact, Privacy, Terms) ===== */
+.wrap {
+  flex: 1;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 16px 24px;
+}
+.back {
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(30, 15, 8, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.back:hover { background: rgba(255, 255, 255, 0.2); }
+.back-bottom { margin: 4px 0 0; }
+
+.panel {
+  background: rgba(255, 246, 234, 0.96);
+  color: var(--ink);
+  border-radius: 16px;
+  padding: 26px 24px;
+  margin: 0 0 20px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+}
+.panel h1 {
+  margin: 0 0 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  color: var(--coral-dark);
+}
+.panel h3 { margin: 20px 0 6px; font-size: 1.02rem; }
+.panel p, .panel li { color: #3a2a1f; }
+.panel p { margin: 0 0 10px; }
+.panel ul { padding-left: 20px; margin: 6px 0 10px; }
+.panel a { color: var(--coral-dark); }
+.updated { font-size: 0.85rem; color: var(--muted); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip {
+  background: #fde3cf;
+  color: #7a2a0e;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 14px 0;
+}
+.contact-item {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  overflow-wrap: anywhere;
+}
+.contact-item strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.panel a.btn-solid { background: var(--coral-dark); color: #fff; }
+.panel a.btn-solid:hover { background: #b23a0b; }
+.panel a.btn-outline { border: 2px solid var(--coral-dark); color: var(--coral-dark); }
+.panel a.btn-outline:hover { background: #fde3cf; }
+
+/* ===== Footer ===== */
+footer {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 8px 16px 32px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #f2dcc6;
+}
+footer a { color: #ffd9b8; }
