@@ -3,88 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Joshua's Seafood Boil | Made-to-Order Seafood Boil</title>
-<style>
-  :root {
-    --bg: #fff8f0;
-    --card: #ffffff;
-    --accent: #d9480f;
-    --accent-dark: #b23a0b;
-    --text: #2b2b2b;
-    --muted: #6b6b6b;
-    --border: #e6d9cc;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
-  }
-  header { text-align: center; padding: 32px 16px 8px; }
-  header h1 { margin: 0; font-size: 1.8rem; color: var(--accent); }
-  header p { margin: 6px 0 0; color: var(--muted); }
-  main { max-width: 560px; margin: 0 auto; padding: 16px; }
-  form {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-  }
-  label { display: block; font-weight: 600; margin: 14px 0 6px; font-size: 0.95rem; }
-  input, select, textarea {
-    width: 100%;
-    padding: 10px 12px;
-    font: inherit;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: #fff;
-  }
-  input:focus, select:focus, textarea:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 1px;
-  }
-  textarea { min-height: 90px; resize: vertical; }
-  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
-  .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
-  button {
-    width: 100%;
-    margin-top: 22px;
-    padding: 13px;
-    font: inherit;
-    font-weight: 700;
-    color: #fff;
-    background: var(--accent);
-    border: 0;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  button:hover { background: var(--accent-dark); }
-  button:disabled { opacity: 0.6; cursor: not-allowed; }
-  #status {
-    margin-top: 16px;
-    padding: 12px;
-    border-radius: 8px;
-    display: none;
-    font-weight: 600;
-  }
-  #status.ok  { display: block; background: #e6f4ea; color: #1e6b34; }
-  #status.err { display: block; background: #fdecea; color: #a12622; }
-  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-  footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 8px 16px 32px; }
-</style>
+<title>Order or Inquire | Joshua's Seafood Boil</title>
+<meta name="description" content="Place a made-to-order seafood boil order or send a question to Joshua's Seafood Boil. Delivery within Pangasinan.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%80%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#2a1409">
+<!-- Link preview (Facebook / Messenger). TODO: replace YOUR-SITE with your real Netlify address,
+     and save a 1200x630 photo as images/og-cover.jpg -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joshua's Seafood Boil">
+<meta property="og:title" content="Order or Inquire | Joshua's Seafood Boil">
+<meta property="og:description" content="Place a made-to-order seafood boil order or send a question to Joshua's Seafood Boil. Delivery within Pangasinan.">
+<meta property="og:image" content="https://YOUR-SITE.netlify.app/images/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
-<header>
-  <h1>Joshua's Seafood Boil</h1>
-  <p>Made-to-order seafood boil. Place an order or send us a question.</p>
-  <p><a href="index.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">&larr; Home Page</a></p>
-</header>
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Joshua's Seafood Boil</a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="index.html#menu">Menu</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a class="nav-cta" href="order.html" aria-current="page">Order</a>
+    </nav>
+  </div>
+</div>
 
-<main>
+<main class="wrap">
+<section class="panel form-panel">
+  <h1>Order or Inquire</h1>
+  <p>Made-to-order seafood boil. Place an order or send us a question. Please order at least 3 days ahead.</p>
+  <p><a href="index.html#menu">See the menu and photos &rarr;</a></p>
+
   <form id="orderForm" novalidate>
 
     <label for="type">What would you like to do?</label>
@@ -111,14 +67,16 @@
     <div id="orderFields">
 
       <label for="items">Boil set / items</label>
-      <!-- TODO: replace these placeholder options with your real menu -->
+      <!-- Keep these set names in sync with the menu on index.html.
+           data-key is used by the "Order Set A/B/C" buttons (?set=a, ?set=b, ?set=c). -->
       <select id="items" name="items">
         <option value="">-- Select --</option>
-        <option value="Set A (placeholder)">Set A (placeholder)</option>
-        <option value="Set B (placeholder)">Set B (placeholder)</option>
-        <option value="Set C (placeholder)">Set C (placeholder)</option>
-        <option value="Custom (placeholder)">Custom / build my own</option>
+        <option data-key="a" value="Set A - Duo Boil (serves 1-2)">Set A &middot; Duo Boil (serves 1&ndash;2)</option>
+        <option data-key="b" value="Set B - Barkada Boil (serves 3-4)">Set B &middot; Barkada Boil (serves 3&ndash;4)</option>
+        <option data-key="c" value="Set C - Family Boil (serves 5-6)">Set C &middot; Family Boil (serves 5&ndash;6)</option>
+        <option data-key="custom" value="Custom / build my own">Custom / build my own</option>
       </select>
+      <div class="hint">Not sure which to pick? <a href="index.html#menu">See the menu</a>.</div>
 
       <div class="row">
         <div>
@@ -137,10 +95,9 @@
       </div>
 
       <label for="sauce">Sauce</label>
-      <!-- TODO: replace with your real sauces -->
       <select id="sauce" name="sauce">
-        <option value="garlic butter"> Garlic butter </option>
-        <option value="cajun"> Sweet and Spicy Cajun</option>
+        <option value="garlic butter">Garlic butter</option>
+        <option value="cajun">Sweet and Spicy Cajun</option>
       </select>
 
       <div class="row">
@@ -193,6 +150,11 @@
     <label for="message">Message <span id="msgOptional" style="font-weight:400;color:var(--muted)">(optional)</span></label>
     <textarea id="message" name="message" placeholder="Allergies, special requests, or your question"></textarea>
 
+    <label class="consent" for="consent">
+      <input id="consent" name="consent" type="checkbox">
+      <span>I agree to the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>, and I allow Joshua's Seafood Boil to use my details to handle my order or question.</span>
+    </label>
+
     <!-- Honeypot: real people never see or fill this. n8n should reject if it is not empty. -->
     <div class="hp" aria-hidden="true">
       <label for="website">Leave this field empty</label>
@@ -202,10 +164,17 @@
     <button type="submit" id="submitBtn">Send</button>
     <div id="status" role="status" aria-live="polite"></div>
   </form>
+</section>
 </main>
 
 <footer>
-  Can't submit? Message us on Facebook: YOUR PAGE LINK HERE
+  <p>Can't submit? <a href="https://www.facebook.com/joshua.cocky.03" target="_blank" rel="noopener">Message us on Facebook</a></p>
+  <p>&copy; <span id="year">2026</span> Joshua's Seafood Boil &middot;
+    <a href="about.html">About Us</a> &middot;
+    <a href="contact.html">Contact Us</a> &middot;
+    <a href="privacy.html">Privacy Policy</a> &middot;
+    <a href="terms.html">Terms &amp; Conditions</a>
+  </p>
 </footer>
 
 <script>
@@ -243,14 +212,24 @@
   typeSel.addEventListener("change", toggleOrderFields);
 
   // The home page links here with ?type=inquiry (message mode) or ?type=order
-  const urlType = new URLSearchParams(location.search).get("type");
+  const params = new URLSearchParams(location.search);
+  const urlType = params.get("type");
   if (urlType === "inquiry" || urlType === "order") typeSel.value = urlType;
+
+  // The menu buttons link here with ?set=a, ?set=b or ?set=c to pre-select a boil set
+  const urlSet = params.get("set");
+  if (urlSet) {
+    const match = Array.from(document.getElementById("items").options)
+      .find(o => o.dataset.key === urlSet.toLowerCase());
+    if (match) { match.selected = true; typeSel.value = "order"; }
+  }
 
   toggleOrderFields();
 
   function showStatus(msg, ok) {
     statusBox.textContent = msg;
     statusBox.className = ok ? "ok" : "err";
+    statusBox.scrollIntoView({ block: "nearest", behavior: "smooth" });
   }
 
   // ===== Pangasinan-only location dropdowns (PSGC public API) =====
@@ -385,6 +364,9 @@
     } else if (!form.message.value.trim()) {
       return showStatus("Please type your question in the message box.", false);
     }
+    if (!document.getElementById("consent").checked) {
+      return showStatus("Please tick the box to agree to the Privacy Policy and Terms.", false);
+    }
 
     // Build the payload (field names match the n8n workflow)
     const payload = {
@@ -394,6 +376,7 @@
       email,
       message: form.message.value.trim(),
       website: form.website.value, // honeypot
+      consent: true,
       source: "netlify-site",
       submitted_at: new Date().toISOString()
     };
@@ -444,6 +427,7 @@
       toggleOrderFields();
     }
   });
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
