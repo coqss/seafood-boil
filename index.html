@@ -4,8 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Joshua's Seafood Boil | Made-to-Order Seafood Boil</title>
-<meta name="description" content="Made-to-order seafood boil delivered within Pangasinan. Place an order or send us a question.">
+<meta name="description" content="Made-to-order seafood boil delivered within Pangasinan. See the menu, pick your sauce and spice level, and place an order or send us a question.">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%80%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#2a1409">
+<!-- Link preview (Facebook / Messenger). TODO: replace YOUR-SITE with your real Netlify address,
+     and save a 1200x630 photo as images/og-cover.jpg -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joshua's Seafood Boil">
+<meta property="og:title" content="Joshua's Seafood Boil | Made-to-Order Seafood Boil">
+<meta property="og:description" content="Made-to-order seafood boil delivered within Pangasinan. See the menu, pick your sauce and spice level, and place an order or send us a question.">
+<meta property="og:image" content="https://YOUR-SITE.netlify.app/images/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
 
@@ -14,11 +24,13 @@
   <div class="topbar-inner">
     <a class="brand" href="index.html">Joshua's Seafood Boil</a>
     <nav class="nav" aria-label="Main">
-      <a href="index.html">Home</a>
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="index.html#menu">Menu</a>
       <a href="about.html">About Us</a>
       <a href="contact.html">Contact Us</a>
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms &amp; Conditions</a>
+      <a class="nav-cta" href="order.html">Order</a>
     </nav>
   </div>
 </div>
@@ -43,9 +55,304 @@
     </a>
   </div>
 
+  <a class="hero-link" href="#menu">See the menu &darr;</a>
+
   <!-- If you change LEAD_DAYS in order.html, update the "3 days" below too -->
   <p class="notice">Please order at least 3 days ahead. Delivery within Pangasinan only.</p>
 </header>
+
+<!--
+  ================================================================
+  HOW TO EDIT THIS PAGE
+  - Anything with the class "todo" (yellow dashed outline) is a PLACEHOLDER.
+    Replace the text, then delete the word "todo" from the class.
+  - Photos: put your own files in the "images" folder using the file names
+    shown on each placeholder (e.g. images/set-a.jpg). Once the file exists,
+    it covers the placeholder automatically. No code change needed.
+  - Keep the set names in sync with the dropdown in order.html.
+  ================================================================
+-->
+
+<!-- ===== MENU ===== -->
+<section class="section" id="menu">
+  <div class="section-head">
+    <h2>Our Boil Sets</h2>
+    <p>Every set is cooked fresh for your date. Choose a sauce and spice level when you order.</p>
+  </div>
+
+  <div class="menu-grid">
+
+    <!-- SET A -->
+    <article class="menu-card">
+      <div class="photo">
+        <img src="images/set-a.jpg" alt="Set A seafood boil with shrimp, mussels, corn and potatoes" loading="lazy" onerror="this.remove()">
+        <span class="photo-label">Photo: images/set-a.jpg</span>
+      </div>
+      <div class="menu-body">
+        <h3>Set A &middot; Duo Boil</h3>
+        <p class="serves">Serves 1&ndash;2 persons</p>
+        <!-- TODO: edit what's included -->
+        <ul class="includes todo">
+          <li>Shrimp</li>
+          <li>Mussels</li>
+          <li>Squid</li>
+          <li>Corn &amp; potatoes</li>
+        </ul>
+        <!-- TODO: put your real price -->
+        <p class="price todo">&#8369;___ <span>starting price</span></p>
+        <a class="btn btn-solid" href="order.html?set=a">Order Set A</a>
+      </div>
+    </article>
+
+    <!-- SET B -->
+    <article class="menu-card menu-featured">
+      <span class="badge">Most popular</span>
+      <div class="photo">
+        <img src="images/set-b.jpg" alt="Set B seafood boil with crab, shrimp, mussels, squid and corn" loading="lazy" onerror="this.remove()">
+        <span class="photo-label">Photo: images/set-b.jpg</span>
+      </div>
+      <div class="menu-body">
+        <h3>Set B &middot; Barkada Boil</h3>
+        <p class="serves">Serves 3&ndash;4 persons</p>
+        <ul class="includes todo">
+          <li>Crab</li>
+          <li>Shrimp</li>
+          <li>Mussels</li>
+          <li>Squid</li>
+          <li>Corn &amp; potatoes</li>
+        </ul>
+        <p class="price todo">&#8369;___ <span>starting price</span></p>
+        <a class="btn btn-solid" href="order.html?set=b">Order Set B</a>
+      </div>
+    </article>
+
+    <!-- SET C -->
+    <article class="menu-card">
+      <div class="photo">
+        <img src="images/set-c.jpg" alt="Set C family seafood boil platter" loading="lazy" onerror="this.remove()">
+        <span class="photo-label">Photo: images/set-c.jpg</span>
+      </div>
+      <div class="menu-body">
+        <h3>Set C &middot; Family Boil</h3>
+        <p class="serves">Serves 5&ndash;6 persons</p>
+        <ul class="includes todo">
+          <li>Crab</li>
+          <li>Shrimp</li>
+          <li>Mussels &amp; clams</li>
+          <li>Squid</li>
+          <li>Corn &amp; potatoes</li>
+        </ul>
+        <p class="price todo">&#8369;___ <span>starting price</span></p>
+        <a class="btn btn-solid" href="order.html?set=c">Order Set C</a>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="menu-note">Want something different, like a bigger group or a custom mix? <a href="order.html?type=inquiry">Send us an inquiry</a> and we'll work it out with you.</p>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="section" id="how-it-works">
+  <div class="section-head">
+    <h2>How It Works</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">1</span>
+      <h3>Place your order</h3>
+      <p>Choose your set, sauce, spice level and date. Order at least 3 days ahead.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <h3>We confirm by message</h3>
+      <p>We message you to confirm the details, the total and how to pay.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <h3>Enjoy it fresh</h3>
+      <p>Your boil is cooked for your date and delivered hot within Pangasinan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SAUCES & SPICE ===== -->
+<section class="section" id="sauces">
+  <div class="section-head">
+    <h2>Pick Your Sauce</h2>
+    <p>Two house sauces, four spice levels.</p>
+  </div>
+  <div class="sauce-grid">
+    <article class="sauce-card">
+      <div class="photo">
+        <img src="images/sauce-garlic-butter.jpg" alt="Garlic butter sauce" loading="lazy" onerror="this.remove()">
+        <span class="photo-label">Photo: images/sauce-garlic-butter.jpg</span>
+      </div>
+      <div class="sauce-body">
+        <h3>Garlic Butter</h3>
+        <!-- TODO: describe your sauce in your own words -->
+        <p class="todo">Rich, buttery and full of garlic. A good pick if you like it savory and mild.</p>
+      </div>
+    </article>
+    <article class="sauce-card">
+      <div class="photo">
+        <img src="images/sauce-cajun.jpg" alt="Sweet and spicy Cajun sauce" loading="lazy" onerror="this.remove()">
+        <span class="photo-label">Photo: images/sauce-cajun.jpg</span>
+      </div>
+      <div class="sauce-body">
+        <h3>Sweet &amp; Spicy Cajun</h3>
+        <p class="todo">Smoky, a little sweet and a little fiery. Our bold, classic boil flavor.</p>
+      </div>
+    </article>
+  </div>
+  <div class="section-panel spice-guide">
+    <h3>Spice levels</h3>
+    <!-- TODO: adjust the descriptions to match how spicy yours really are -->
+    <ul class="spice-list todo">
+      <li><strong>None</strong> &ndash; all flavor, no heat. Good for kids.</li>
+      <li><strong>Mild</strong> &ndash; a gentle warmth.</li>
+      <li><strong>Medium</strong> &ndash; a noticeable kick. Our most popular.</li>
+      <li><strong>Hot</strong> &ndash; for people who love the burn.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="section" id="gallery">
+  <div class="section-head">
+    <h2>From Our Kitchen</h2>
+    <p>Real boils, made to order.</p>
+  </div>
+  <div class="gallery">
+    <figure>
+      <div class="photo"><img src="images/gallery-1.jpg" alt="Full seafood boil in the pan" loading="lazy" onerror="this.remove()"><span class="photo-label">Photo: images/gallery-1.jpg</span></div>
+      <figcaption>The full pan</figcaption>
+    </figure>
+    <figure>
+      <div class="photo"><img src="images/gallery-2.jpg" alt="Close-up of crab with sauce" loading="lazy" onerror="this.remove()"><span class="photo-label">Photo: images/gallery-2.jpg</span></div>
+      <figcaption>Close-up of the sauce</figcaption>
+    </figure>
+    <figure>
+      <div class="photo"><img src="images/gallery-3.jpg" alt="Boil packed for delivery" loading="lazy" onerror="this.remove()"><span class="photo-label">Photo: images/gallery-3.jpg</span></div>
+      <figcaption>Packed for delivery</figcaption>
+    </figure>
+    <figure>
+      <div class="photo"><img src="images/gallery-4.jpg" alt="Customers enjoying a seafood boil" loading="lazy" onerror="this.remove()"><span class="photo-label">Photo: images/gallery-4.jpg</span></div>
+      <figcaption>Happy table</figcaption>
+    </figure>
+    <figure>
+      <div class="photo"><img src="images/gallery-5.jpg" alt="Shrimp and corn close-up" loading="lazy" onerror="this.remove()"><span class="photo-label">Photo: images/gallery-5.jpg</span></div>
+      <figcaption>Shrimp &amp; corn</figcaption>
+    </figure>
+    <figure>
+      <div class="photo"><img src="images/gallery-6.jpg" alt="Cooking the boil" loading="lazy" onerror="this.remove()"><span class="photo-label">Photo: images/gallery-6.jpg</span></div>
+      <figcaption>Cooking it fresh</figcaption>
+    </figure>
+  </div>
+
+  <!--
+    OPTIONAL VIDEO CLIP: save a short clip as videos/boil-clip.mp4 (under ~10 MB),
+    then remove this comment markers to show it.
+
+  <div class="section-panel video-wrap">
+    <video controls playsinline preload="metadata" poster="images/gallery-1.jpg">
+      <source src="videos/boil-clip.mp4" type="video/mp4">
+    </video>
+  </div>
+  -->
+</section>
+
+<!-- ===== DELIVERY & PAYMENT ===== -->
+<section class="section" id="delivery">
+  <div class="section-head">
+    <h2>Delivery &amp; Payment</h2>
+  </div>
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>Where we deliver</h3>
+      <!-- TODO: list the towns you really cover -->
+      <p class="todo">Within Pangasinan. [List your towns, e.g. Lingayen, Dagupan, Binmaley...]</p>
+    </div>
+    <div class="info-card">
+      <h3>Delivery fee</h3>
+      <p class="todo">[e.g. Free within Lingayen, &#8369;___ for other towns. Confirmed when we confirm your order.]</p>
+    </div>
+    <div class="info-card">
+      <h3>How to pay</h3>
+      <p class="todo">[e.g. GCash, bank transfer or cash on delivery.]</p>
+    </div>
+    <div class="info-card">
+      <h3>Lead time</h3>
+      <p>Please order at least 3 days before your date. Everything is made to order.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="section" id="reviews">
+  <div class="section-head">
+    <h2>What Customers Say</h2>
+  </div>
+  <!-- TODO: replace with real reviews. Ask the customer's permission first. -->
+  <div class="reviews">
+    <blockquote class="review todo">
+      <p>&ldquo;[Paste a real customer comment here.]&rdquo;</p>
+      <cite>&ndash; [Customer name, town]</cite>
+    </blockquote>
+    <blockquote class="review todo">
+      <p>&ldquo;[Paste a real customer comment here.]&rdquo;</p>
+      <cite>&ndash; [Customer name, town]</cite>
+    </blockquote>
+    <blockquote class="review todo">
+      <p>&ldquo;[Paste a real customer comment here.]&rdquo;</p>
+      <cite>&ndash; [Customer name, town]</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq">
+  <div class="section-head">
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="section-panel faq">
+    <details>
+      <summary>How far ahead do I need to order?</summary>
+      <p>At least 3 days before your delivery or pickup date, since everything is made to order.</p>
+    </details>
+    <details>
+      <summary>Can I change or cancel my order?</summary>
+      <p>Please tell us as early as possible. Changes and cancellations may not be possible once we've started preparing your order. See our <a href="terms.html">Terms &amp; Conditions</a>.</p>
+    </details>
+    <details>
+      <summary>How many people does each set serve?</summary>
+      <p>Set A serves 1&ndash;2, Set B serves 3&ndash;4 and Set C serves 5&ndash;6. For a bigger group, <a href="order.html?type=inquiry">send us an inquiry</a>.</p>
+    </details>
+    <details>
+      <summary>Do you deliver outside Pangasinan?</summary>
+      <p>Not at the moment. We deliver within Pangasinan only. Pickup is also available.</p>
+    </details>
+    <details>
+      <summary>I have a seafood allergy. Is it safe to order?</summary>
+      <p>Our food contains seafood, including shellfish, and we can't guarantee it is free from allergens or cross-contact. Please tell us about any allergies in the message box.</p>
+    </details>
+    <details>
+      <summary>How do I pay?</summary>
+      <p>We message you after your order to confirm the total and the payment options.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== FINAL CALL TO ACTION ===== -->
+<section class="section cta">
+  <div class="section-panel cta-panel">
+    <h2>Hungry? Let's get cooking.</h2>
+    <div class="btn-row">
+      <a class="btn btn-solid" href="order.html">Order here</a>
+      <a class="btn btn-outline" href="order.html?type=inquiry">Send an inquiry</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <p>&copy; <span id="year">2026</span> Joshua's Seafood Boil &middot;
@@ -56,5 +363,6 @@
   </p>
 </footer>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<a class="fab" href="https://www.facebook.com/joshua.cocky.03" target="_blank" rel="noopener">Message us</a>
 </body>
 </html>
